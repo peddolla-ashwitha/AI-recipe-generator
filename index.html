@@ -3,188 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Recipe Finder</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background-color: #0d1117;
-      color: #f0f6fc;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      text-align: center;
-      padding: 40px 20px;
-      background-color: #161b22;
-      box-shadow: 0 0 10px #30363d;
-    }
-
-    h1 {
-      color: #58a6ff;
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #8b949e;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 30px auto;
-      background: #161b22;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(56, 139, 253, 0.2);
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 16px;
-      outline: none;
-      background: #0d1117;
-      color: #f0f6fc;
-      border: 1px solid #30363d;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #238636;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #2ea043;
-    }
-
-    .results {
-      margin-top: 30px;
-    }
-
-    .recipe-card {
-      background-color: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .recipe-card h3 {
-      color: #58a6ff;
-      margin-bottom: 10px;
-    }
-
-    .recipe-card ul {
-      padding-left: 20px;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 15px;
-      color: #8b949e;
-      font-size: 14px;
-    }
-  </style>
+  <title>AI Recipe Generator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>🍳 AI Recipe Finder</h1>
-    <p>Enter ingredients you have — get smart recipe suggestions!</p>
-  </header>
-
   <div class="container">
-    <input
-      type="text"
-      id="ingredients"
-      placeholder="e.g. chicken, tomato, rice"
-    />
-    <button onclick="findRecipes()">Find Recipes</button>
+    <h1>🔍 Find Your Perfect Recipe</h1>
+    <p>Enter ingredients you have, and we’ll suggest recipes!</p>
+    <input type="text" id="ingredients" placeholder="e.g., chicken, onion, tomato" />
+    <button id="findBtn">Find Recipes</button>
 
-    <div class="results" id="results"></div>
+    <div id="results" class="results"></div>
   </div>
 
-  <div class="footer">
-    Made with ❤ using HTML, CSS, and JavaScript
-  </div>
-
-  <script>
-    function findRecipes() {
-      const input = document.getElementById("ingredients").value.toLowerCase();
-      const results = document.getElementById("results");
-      results.innerHTML = "";
-
-      if (!input) {
-        results.innerHTML = "<p>Please enter some ingredients!</p>";
-        return;
-      }
-
-      const recipes = [
-        {
-          name: "Classic Chicken Stir Fry",
-          ingredients: ["chicken", "soy sauce", "garlic", "onion"],
-          steps: [
-            "Cut chicken into pieces",
-            "Fry with garlic and onion",
-            "Add soy sauce and cook for 5 mins",
-            "Serve hot"
-          ]
-        },
-        {
-          name: "Creamy Tomato Pasta",
-          ingredients: ["tomato", "pasta", "cheese", "cream"],
-          steps: [
-            "Boil pasta and drain",
-            "Prepare tomato sauce with cream",
-            "Mix pasta and sauce together",
-            "Top with cheese and serve"
-          ]
-        },
-        {
-          name: "Vegetable Fried Rice",
-          ingredients: ["rice", "carrot", "peas", "egg"],
-          steps: [
-            "Cook rice and keep aside",
-            "Fry vegetables and scrambled egg",
-            "Add rice and stir well",
-            "Serve with soy sauce"
-          ]
-        }
-      ];
-
-      const inputIngredients = input.split(",").map(i => i.trim());
-      const matched = recipes.filter(r =>
-        inputIngredients.some(i => r.ingredients.includes(i))
-      );
-
-      if (matched.length === 0) {
-        results.innerHTML =
-          "<p>No recipes found. Try other ingredients!</p>";
-        return;
-      }
-
-      matched.forEach(r => {
-        const div = document.createElement("div");
-        div.classList.add("recipe-card");
-        div.innerHTML = `
-          <h3>${r.name}</h3>
-          <p><b>Ingredients:</b> ${r.ingredients.join(", ")}</p>
-          <p><b>Steps:</b></p>
-          <ul>${r.steps.map(s => <li>${s}</li>).join("")}</ul>
-        `;
-        results.appendChild(div);
-      });
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
