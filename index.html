@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Recipe Generator</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #58a6ff;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #161b22;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #30363d;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background-color: #238636;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2ea043;
+    }
+    .recipe {
+      background-color: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍳 Find Your Perfect Recipe</h1>
+  <div class="container">
+    <label>Enter Ingredients (comma separated):</label>
+    <input type="text" id="ingredients" placeholder="e.g. chicken, tomato, rice">
+    <button onclick="generateRecipes()">Find Recipes</button>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    function generateRecipes() {
+      const input = document.getElementById('ingredients').value.toLowerCase();
+      const results = document.getElementById('results');
+      results.innerHTML = '';
+
+      if (!input) {
+        results.innerHTML = '<p>Please enter ingredients!</p>';
+        return;
+      }
+
+      // Example static recipe data
+      const recipes = [
+        { name: "Classic Chicken Stir Fry", ingredients: ["chicken", "soy sauce", "garlic", "onion"], steps: ["Cook chicken", "Add garlic and onion", "Mix sauce and serve"] },
+        { name: "Creamy Tomato Pasta", ingredients: ["tomato", "pasta", "cheese", "cream"], steps: ["Boil pasta", "Add sauce", "Mix cream and cheese"] },
+        { name: "Vegetable Fried Rice", ingredients: ["rice", "carrot", "peas", "egg"], steps: ["Cook rice", "Fry vegetables", "Mix everything"] }
+      ];
+
+      const inputIngredients = input.split(',').map(i => i.trim());
+      const matched = recipes.filter(r => inputIngredients.some(i => r.ingredients.includes(i)));
+
+      if (matched.length === 0) {
+        results.innerHTML = '<p>No recipes found. Try different ingredients!</p>';
+        return;
+      }
+
+      matched.forEach(r => {
+        const div = document.createElement('div');
+        div.className = 'recipe';
+        div.innerHTML = `<h3>${r.name}</h3>
+        <p><b>Ingredients:</b> ${r.ingredients.join(', ')}</p>
+        <p><b>Steps:</b></p><ol>${r.steps.map(s => <li>${s}</li>).join('')}</ol>`;
+        results.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
